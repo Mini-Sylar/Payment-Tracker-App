@@ -1,0 +1,33 @@
+Things to add
+
+1. Make "add Employee" Button from AddEmployee Module create a new Tab With A table in main window
+   - Table created should have correct headings
+
+2. Now Update The table
+
+3. Table Updater
+    When you call the tableUpdater
+    it's supposed to fill all the lines with the right details
+    if called again move to the next line and fill data
+    ** perform all calculations
+    set min and max slider boxes
+    (columns are being rearranged for some reason) - (fixed) (1/16/21)
+
+4!. FIX TABLE UPDATER UPDATING ONLY THE LATEST TABLE - (FIXED) 1/16/21
+
+5. Add Export to .xlxs (Save as, Save, Save as dialog box) - (Completed) 1/17/21
+5-1. Put a check for when the main window has no table - (completed) 1/18/21
+5-2. Append The Employee Name to the save name(Will be added)
+5-3!. Add Save State So that you can reopen the employee data and tabs (save to .xls will be a different option) !Actively being worked on
+
+
+# Building Style Sheet
+6. Replace Action buttons with icons
+
+7. Find a nice style for your program
+
+8. Set min and maximum time make them dynamic
+    fix the 11pm bug (when it reaches 11 it locks time_ended) you can make it reset
+
+9. Fix Save Settings into .ini
+    **currently being worked on
