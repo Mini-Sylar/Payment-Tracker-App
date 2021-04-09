@@ -1,5 +1,5 @@
-# DSC-CHALLENGE (UI version 1.0)
-
+# DSC-CHALLENGE-UG (UI version 1.0)
+### University of Ghana
 A program to help an employee track how much they are paid after a period of work (UI version)
 
 ## Installation
