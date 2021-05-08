@@ -43,6 +43,7 @@ this issue is being worked on
 <img width="380" src="/Screenshots/Screen5.png" alt="Sample Data After Update">
 <img width="380" src="/Screenshots/Screen6.png" alt="Sample Data After Exporting">
 </div>
+
 Sample file is included in Screenshots folder as [Sample Output](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/Screenshots/Employee1_Data.xls)
 
 ## Contributing
