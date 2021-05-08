@@ -43,7 +43,7 @@ this issue is being worked on
 <img width="380" src="/Screenshots/Screen5.png" alt="Sample Data After Update">
 <img width="380" src="/Screenshots/Screen6.png" alt="Sample Data After Exporting">
 </div>
-Sample file is included in Screenshots folder as "Employee1_Data.xls"
+Sample file is included in Screenshots folder as [Sample Output]("/Screenshots/Employee1_Data.xls")
 
 ## Contributing
 Pull requests are welcome. Also a TO DO list will be added to give an idea of what is 
