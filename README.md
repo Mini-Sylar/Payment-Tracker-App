@@ -32,6 +32,7 @@ TableSaver Module is included in the files [REMOVED]
 ```
 At the moment you cannot recover employee data after closing the program [FIXED]
 ```
+[Changelog](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/CHANGELOG.md)
 
 ## Screenshots
 <div>
