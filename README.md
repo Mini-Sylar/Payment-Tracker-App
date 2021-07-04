@@ -8,7 +8,7 @@ Program depends on the following libraries
 - sys
 - xlswriter
 - qt_material
-- TableSaver (custom module adapted from ellyansec's save modules)
+- TableSaver (custom module adapted from ellyansec's save modules) [REMOVED]
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the following libraries.
 
@@ -16,7 +16,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the fol
 pip install PyQt5
 pip install XlsxWriter
 pip install qt-material
-TableSaver Module is included in the files 
+TableSaver Module is included in the files [REMOVED]
 ```
 
 ## Usage
@@ -30,8 +30,7 @@ TableSaver Module is included in the files
 
 ## Issues
 ```
-At the moment you cannot recover employee data after closing the program
-this issue is being worked on
+At the moment you cannot recover employee data after closing the program [FIXED]
 ```
 
 ## Screenshots

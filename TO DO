@@ -18,7 +18,7 @@ Things to add
 5. Add Export to .xlxs (Save as, Save, Save as dialog box) - (Completed) 1/17/21
 5-1. Put a check for when the main window has no table - (completed) 1/18/21
 5-2. Append The Employee Name to the save name(Will be added)
-5-3!. Add Save State So that you can reopen the employee data and tabs (save to .xls will be a different option) !Actively being worked on
+5-3!. Add Save State So that you can reopen dthe employee data and tabs (save to .xls will be a different option) !Actively being worked on
 
 
 # Building Style Sheet

@@ -1,23 +1,20 @@
+import json
 import sys
 
 import xlsxwriter
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import QTime, QTimer, Qt, QSettings, QCoreApplication, QObject
+from PyQt5.QtCore import QTime, QTimer, Qt, QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QAction, QMessageBox, QLabel, QToolBar, QTabWidget, \
     QVBoxLayout, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView, QFileDialog, QApplication
-
-import TableSaver
-from AddEmployee import WindowEmployeeAdd
-from UpdateEmployee import WindowEmployeeUpdate
 from qt_material import apply_stylesheet
+
+from Windows.AddEmployee import WindowEmployeeAdd
+from Windows.UpdateEmployee import WindowEmployeeUpdate
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setObjectName("ManageEmployeeObject")
-
-        # self.settings = QSettings("__settings.ini", QSettings.IniFormat)
-        # print(self.settings.fileName())
 
         self.setWindowTitle("Manage Employee")
         self.setGeometry(100, 100, 690, 600)
@@ -31,22 +28,17 @@ class MainWindow(QMainWindow):
         self.centralwidget.setLayout(self.vbox)
         self.setCentralWidget(self.centralwidget)
         self.centralwidget.setObjectName("CentralWidget")
-        # Settings
-
-        self.settings = QSettings("__settings.ini", QSettings.IniFormat)
-        self.settings.setFallbacksEnabled(False)
 
         self.create_menu()
         self.create_statusbar()
         self.create_toolbar()
         self.create_tabs()
 
-
     def create_menu(self):
         # create menu bar
         main_menu = self.menuBar()
         fileMenu = main_menu.addMenu("File")
-        ## Add actions here
+        # Add actions here
         newAction = QAction("New", self)  # This will open the Add Employee Window
         newAction.setShortcut("Ctrl+N")
         newAction.triggered.connect(self.newEmployeeWindow)
@@ -54,7 +46,7 @@ class MainWindow(QMainWindow):
 
         openAction = QAction("Open", self)
         openAction.setShortcut("Ctrl+O")
-        openAction.triggered.connect(self.read_settings)
+        openAction.triggered.connect(self.read_json)
         fileMenu.addAction(openAction)
         fileMenu.addSeparator()
 
@@ -65,7 +57,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(self.saveasAction)
 
         exitAction = QAction("Exit", self)
-        exitAction.triggered.connect(self.close)
+        exitAction.triggered.connect(self.closeEvent)
         fileMenu.addAction(exitAction)
 
         # Menu 2
@@ -119,7 +111,6 @@ class MainWindow(QMainWindow):
         # add tab widget to central Window
         self.tabs = QTabWidget(self.centralwidget)
         self.tabs.setObjectName("MyTabs")
-        print("Main TabName is ", self.tabs.objectName())
         self.vbox.addWidget(self.tabs)
 
     def addNewTab(self):
@@ -164,7 +155,6 @@ class MainWindow(QMainWindow):
         # Add the tab widget as a new tab to the main QTabWidget
         self.tabs.addTab(self.tabNew, self.windowAvailable.nameLineEdit.text())
         self.tabNew.setObjectName(self.windowAvailable.nameLineEdit.text())
-        print("Tab name is ", self.tabNew.objectName())
 
     def newEmployeeWindow(self):
         if self.windowAvailable is None:
@@ -208,19 +198,17 @@ class MainWindow(QMainWindow):
             self.gettimeEnded = self.updateAvailable.updateendeLineEdit.time()
 
             getTimeHours = int(self.gettimeStarted.secsTo(self.gettimeEnded) / 3600)
-            getTimeMins = (self.gettimeEnded.minute() - self.gettimeStarted.minute())  ## change if you can
+            getTimeMins = (self.gettimeEnded.minute() - self.gettimeStarted.minute())  # change if you can
 
             self.totaltimeworked = str(getTimeHours) + "hour(s) " + str(getTimeMins) + "mins"
             # Total Amount Paid
             self.final_amount = (self.gettimeStarted.secsTo(self.gettimeEnded) / 3600) * 5.00
-            print("Mins to is:", int(self.gettimeStarted.secsTo(self.gettimeEnded) / 60))
             self.tableUpdater()  # pass # call the function that updates the table here
         self.updateAvailable = None
 
     def tableUpdater(self):
         # Find the child in the CurrentWidget(which is self.tab) and find the child in that current widget
         self.whichtable = self.tabs.currentWidget().findChild(QTableWidget)
-        # print("Which Table is ",whichtable)
         for row in range(self.whichtable.rowCount()):
             row_number = self.whichtable.rowCount()
             self.whichtable.insertRow(row_number)
@@ -233,8 +221,6 @@ class MainWindow(QMainWindow):
             self.whichtable.setItem(row_number, 5,
                                     QTableWidgetItem('${:,.2f}'.format(self.final_amount)))  # Total Amount Paid
             break
-
-
 
     def helpMessage(self):
         QMessageBox.about(self, "About", "DSC Challenge GUI v.1.0.0 \nBy Terence Quashie")
@@ -265,33 +251,82 @@ class MainWindow(QMainWindow):
             col += 1
 
     def closeEvent(self, event):
-        self.write_settings()
-
+        self.write_json()
         super().closeEvent(event)
 
+    def write_json(self):
+        mydict = {"Name": [self.tabs.tabText(self.tabs.currentIndex())]}
+        column = 0
+        date, timestarted, timeended, totaltimeworked, amount_perhour, amount_paid = [], [], [], [], [], []
+        # Start adding stuff here
+        for row in range(self.table.rowCount()):
+            _item = self.table.item(row, column)
+            if _item:
+                column = 0
+                item = self.table.item(row, column).text()
+                column = 1
+                item2 = self.table.item(row, column).text()
+                column = 2
+                item3 = self.table.item(row, column).text()
+                column = 3
+                item4 = self.table.item(row, column).text()
+                column = 4
+                item5 = self.table.item(row, column).text()
+                column = 5
+                item6 = self.table.item(row, column).text()
 
-    def read_settings(self):
-        with TableSaver.settingsContext("data.ini") as m:
-            for children in self.findChildren(QtWidgets.QWidget):
-                if children.objectName():
-                    m.read(children)
+                date.append(item)
+                timestarted.append(item2)
+                timeended.append(item3)
+                totaltimeworked.append(item4)
+                amount_perhour.append(item5)
+                amount_paid.append(item6)
 
+                mydict[self.table.item(0, 0).text()] = date[1:]
+                mydict[self.table.item(0, 1).text()] = timestarted[1:]
+                mydict[self.table.item(0, 2).text()] = timeended[1:]
+                mydict[self.table.item(0, 3).text()] = totaltimeworked[1:]
+                mydict[self.table.item(0, 4).text()] = amount_perhour[1:]
+                mydict[self.table.item(0, 5).text()] = amount_paid[1:]
 
-    def write_settings(self):
-        self.settings.beginGroup(self.tabNew.objectName())
-        self.settings.setValue("ObjectName",self.tabNew.objectName())
-        self.settings.endGroup()
-        with TableSaver.settingsContext("data.ini") as m:
-            for children in self.findChildren(QtWidgets.QWidget):
-                if children.objectName():
-                    m.write(children)
+        # Setting Up json
+        json_object = json.dumps(mydict, indent=4)
+        with open(self.tabs.tabText(self.tabs.currentIndex()).replace(" ", "") + "-data.json", "w") as outfile:
+            outfile.write(json_object)
+
+    def read_json(self, json_name=None):
+        if not json_name:
+            json_name = QFileDialog.getOpenFileName(self, 'Open Json', '', ".json(*.json)")
+        if json_name[0]:
+            with open(json_name[0]) as f:
+                data = json.load(f)
+            column_count = (len(data['Date']))
+            self.table.setRowCount(column_count + 1)
+            # fill Specific Columns
+            for row in range(self.table.rowCount()):  # add items from array to QTableWidget
+                row = 1
+                for column in range(column_count):
+                    item_date = (list(data["Date"])[column])
+                    item_timestarted = (list(data["Time Started"])[column])
+                    item_timeended = (list(data["Time Ended"])[column])
+                    item_totaltime = (list(data["Total Time Worked"])[column])
+                    item_amountper = (list(data["Amount Per Hour"])[column])
+                    item_amountpaid = (list(data["Amount Paid"])[column])
+
+                    self.table.setItem(row, 0, QTableWidgetItem(item_date))
+                    self.table.setItem(row, 1, QTableWidgetItem(item_timestarted))
+                    self.table.setItem(row, 2, QTableWidgetItem(item_timeended))
+                    self.table.setItem(row, 3, QTableWidgetItem(item_totaltime))
+                    self.table.setItem(row, 4, QTableWidgetItem(item_amountper))
+                    self.table.setItem(row, 5, QTableWidgetItem(item_amountpaid))
+                    row += 1
 
 
 app = QApplication(sys.argv)
 
-QCoreApplication.setApplicationName("Ugo")
-QCoreApplication.setOrganizationDomain("Ugo")
-QCoreApplication.setApplicationName("Ugo")
+QCoreApplication.setApplicationName("Simple Payment Tracker")
+QCoreApplication.setOrganizationDomain("Terence")
+QCoreApplication.setApplicationName("Simple Payment Tracker")
 
 # setup stylesheet
 apply_stylesheet(app, theme='dark_teal.xml')
