@@ -1,5 +1,5 @@
-# DSC-CHALLENGE-UG (UI version 1.0)
-### University of Ghana
+# PAYMENT-TRACKER-APP (UI version 2.0)
+### from DSC challenge,University of Ghana
 A program to help an employee track how much they are paid after a period of work (UI version)
 
 ## Installation
