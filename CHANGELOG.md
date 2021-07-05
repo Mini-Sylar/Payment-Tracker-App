@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] - 2021-04-07
+### Added
+- No Major additions
+- Added folder to store JSON files samples are included
+### Changed
+- Json data is now loaded according to the name in the user
+- Program automatically adds tab and fills it if the names do not match
+### Issues
+- No Major issues
+<hr>
+
+
 ## [Unreleased] - 2021-03-07
 ### Added
 - Added option to save as json file due its simplicity

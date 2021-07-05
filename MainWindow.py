@@ -1,4 +1,5 @@
 import json
+import os.path
 import sys
 
 import xlsxwriter
@@ -156,6 +157,42 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.tabNew, self.windowAvailable.nameLineEdit.text())
         self.tabNew.setObjectName(self.windowAvailable.nameLineEdit.text())
 
+    def add_atab(self,tabname):
+        # Create a tab as a widget so you can place anything on it
+        self.tabNew = QWidget(self.tabs)
+        # Create a layout and add said tab
+        self.tab_layout = QVBoxLayout(self.tabNew)
+        self.tab_layout.setObjectName("tabLayout")
+        # Create a table
+        self.table = QTableWidget(self)
+        self.table.setObjectName("AddEmployeeTable")
+        self.saveasAction.setEnabled(True)
+        # Set properties for table for demo process
+        self.table.setRowCount(2)  # for demonstration purposes
+        self.table.setColumnCount(6)  # For Demonstration Purposes
+        self.table.setColumnWidth(3, 110)  # For Demonstration Purposes
+        self.table.setColumnWidth(4, 120)  # For Demonstration Purposes
+
+        # Column
+        self.table.setItem(0, 0, QTableWidgetItem("Date"))
+        self.table.setItem(0, 1, QTableWidgetItem("Time Started"))
+        self.table.setItem(0, 2, QTableWidgetItem("Time Ended"))
+        self.table.setItem(0, 3, QTableWidgetItem("Total Time Worked"))
+        self.table.setItem(0, 4, QTableWidgetItem("Amount Per Hour"))
+        self.table.setItem(0, 5, QTableWidgetItem("Amount Paid"))
+
+        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # create a button
+        self.updateButton = QPushButton("Update")
+        self.updateButton.clicked.connect(self.UpdateEmployeeWindow)
+        # Add Widgets to the tab layout you have created
+        self.tab_layout.addWidget(self.table)
+        self.tab_layout.addWidget(self.updateButton, 0, Qt.AlignHCenter)
+        # Add the tab widget as a new tab to the main QTabWidget
+        self.tabs.addTab(self.tabNew, str(tabname))
+        self.tabNew.setObjectName(str(tabname))
+        self.tabs.setCurrentIndex(self.tabs.indexOf(self.tabNew))
+
     def newEmployeeWindow(self):
         if self.windowAvailable is None:
             self.windowAvailable = WindowEmployeeAdd()
@@ -251,7 +288,10 @@ class MainWindow(QMainWindow):
             col += 1
 
     def closeEvent(self, event):
-        self.write_json()
+        try:
+            self.write_json()
+        except AttributeError:
+            print("There is no table")
         super().closeEvent(event)
 
     def write_json(self):
@@ -291,35 +331,49 @@ class MainWindow(QMainWindow):
 
         # Setting Up json
         json_object = json.dumps(mydict, indent=4)
-        with open(self.tabs.tabText(self.tabs.currentIndex()).replace(" ", "") + "-data.json", "w") as outfile:
-            outfile.write(json_object)
+        filename = self.tabs.tabText(self.tabs.currentIndex()).replace(" ", "") + "-data.json"
+        finalpath = os.path.join('SavedData', filename)
+
+        outfile = open(finalpath,"w")
+        outfile.write(json_object)
+        outfile.close()
 
     def read_json(self, json_name=None):
         if not json_name:
             json_name = QFileDialog.getOpenFileName(self, 'Open Json', '', ".json(*.json)")
         if json_name[0]:
-            with open(json_name[0]) as f:
-                data = json.load(f)
-            column_count = (len(data['Date']))
-            self.table.setRowCount(column_count + 1)
-            # fill Specific Columns
-            for row in range(self.table.rowCount()):  # add items from array to QTableWidget
-                row = 1
-                for column in range(column_count):
-                    item_date = (list(data["Date"])[column])
-                    item_timestarted = (list(data["Time Started"])[column])
-                    item_timeended = (list(data["Time Ended"])[column])
-                    item_totaltime = (list(data["Total Time Worked"])[column])
-                    item_amountper = (list(data["Amount Per Hour"])[column])
-                    item_amountpaid = (list(data["Amount Paid"])[column])
+            try:
+                with open(json_name[0]) as f:
+                    data = json.load(f)
+                while True:
+                    if self.tabs.tabText(self.tabs.currentIndex()) == data["Name"][0]:
+                        column_count = (len(data['Date']))
+                        self.table.setRowCount(column_count + 1)
+                        # fill Specific Columns
+                        for row in range(self.table.rowCount()):  # add items from array to QTableWidget
+                            row = 1
+                            for column in range(column_count):
+                                item_date = (list(data["Date"])[column])
+                                item_timestarted = (list(data["Time Started"])[column])
+                                item_timeended = (list(data["Time Ended"])[column])
+                                item_totaltime = (list(data["Total Time Worked"])[column])
+                                item_amountper = (list(data["Amount Per Hour"])[column])
+                                item_amountpaid = (list(data["Amount Paid"])[column])
 
-                    self.table.setItem(row, 0, QTableWidgetItem(item_date))
-                    self.table.setItem(row, 1, QTableWidgetItem(item_timestarted))
-                    self.table.setItem(row, 2, QTableWidgetItem(item_timeended))
-                    self.table.setItem(row, 3, QTableWidgetItem(item_totaltime))
-                    self.table.setItem(row, 4, QTableWidgetItem(item_amountper))
-                    self.table.setItem(row, 5, QTableWidgetItem(item_amountpaid))
-                    row += 1
+                                self.table.setItem(row, 0, QTableWidgetItem(item_date))
+                                self.table.setItem(row, 1, QTableWidgetItem(item_timestarted))
+                                self.table.setItem(row, 2, QTableWidgetItem(item_timeended))
+                                self.table.setItem(row, 3, QTableWidgetItem(item_totaltime))
+                                self.table.setItem(row, 4, QTableWidgetItem(item_amountper))
+                                self.table.setItem(row, 5, QTableWidgetItem(item_amountpaid))
+                                row += 1
+                        break
+                    else:
+                        # Else create a tab with a table and re run loop
+                        self.add_atab(data["Name"][0])
+
+            except AttributeError as e:
+                print(e)
 
 
 app = QApplication(sys.argv)

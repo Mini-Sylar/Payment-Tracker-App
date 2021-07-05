@@ -28,11 +28,9 @@ TableSaver Module is included in the files [REMOVED]
 - Use the save button to export the items in the table as a spreadsheet
 ```
 
-## Issues
-```
-At the moment you cannot recover employee data after closing the program [FIXED]
-```
-[Changelog](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/CHANGELOG.md)
+## Update
+View [Changelog](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/CHANGELOG.md)
+for updates to the project
 
 ## Screenshots
 <div>

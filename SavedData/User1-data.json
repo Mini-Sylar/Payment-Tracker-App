@@ -1,0 +1,35 @@
+{
+    "Name": [
+        "User1"
+    ],
+    "Date": [
+        "Fri Jan 1 2021",
+        "Fri Jan 1 2021",
+        "Fri Jan 1 2021"
+    ],
+    "Time Started": [
+        "8:00 AM",
+        "10:00 AM",
+        "11:00 AM"
+    ],
+    "Time Ended": [
+        "9:00 AM",
+        "11:00 AM",
+        "1:25 PM"
+    ],
+    "Total Time Worked": [
+        "1hour(s) 0mins",
+        "1hour(s) 0mins",
+        "2hour(s) 25mins"
+    ],
+    "Amount Per Hour": [
+        "$5.00",
+        "$5.00",
+        "$5.00"
+    ],
+    "Amount Paid": [
+        "$5.00",
+        "$5.00",
+        "$12.08"
+    ]
+}
