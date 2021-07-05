@@ -6,13 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - 2021-04-07
 ### Added
-- No Major additions
-- Added folder to store JSON files samples are included
+- JSON can be loaded right after starting application
+- Added folder to store JSON files samples are included!
+- Work is automatically saved when you close the app
 ### Changed
 - Json data is now loaded according to the name in the user
 - Program automatically adds tab and fills it if the names do not match
 ### Issues
-- No Major issues
+- Your work will be replaced once you start a new file under the same name and save
 <hr>
 
 
