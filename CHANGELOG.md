@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [Unreleased] - 2021-04-08
+### Added
+- Added icons to toolbar with the module
+- Added Save to file menu
+### Changed
+- Changed Save As to Export 
+### Issues
+- Your work will be replaced once you start a new file under the same name and save
+<hr>
+
+
 ## [Unreleased] - 2021-04-07
 ### Added
 - JSON can be loaded right after starting application

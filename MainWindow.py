@@ -3,7 +3,8 @@ import os.path
 import sys
 
 import xlsxwriter
-from PyQt5.QtCore import QTime, QTimer, Qt, QCoreApplication
+from PyQt5.QtCore import QTime, QTimer, Qt, QCoreApplication, QSize
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QAction, QMessageBox, QLabel, QToolBar, QTabWidget, \
     QVBoxLayout, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView, QFileDialog, QApplication
 from qt_material import apply_stylesheet
@@ -11,6 +12,7 @@ from qt_material import apply_stylesheet
 from Windows.AddEmployee import WindowEmployeeAdd
 from Windows.UpdateEmployee import WindowEmployeeUpdate
 
+import ToolbarIcons
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -18,7 +20,7 @@ class MainWindow(QMainWindow):
         self.setObjectName("ManageEmployeeObject")
 
         self.setWindowTitle("Manage Employee")
-        self.setGeometry(100, 100, 690, 600)
+        self.setGeometry(100, 100, 700, 600)
         # self.setFixedSize(690,600)
         self.windowAvailable = None  # set available Window to None
         self.updateAvailable = None
@@ -33,6 +35,7 @@ class MainWindow(QMainWindow):
         self.create_menu()
         self.create_statusbar()
         self.create_toolbar()
+        self.manageIcons()
         self.create_tabs()
 
     def create_menu(self):
@@ -51,14 +54,20 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(openAction)
         fileMenu.addSeparator()
 
-        self.saveasAction = QAction("Save As", self)
+        self.saveAction = QAction("Save", self)
+        self.saveAction.setShortcut("Ctrl+S")
+        self.saveAction.triggered.connect(self.write_json)
+        fileMenu.addAction(self.saveAction)
+        self.saveAction.setEnabled(False)
+
+        self.saveasAction = QAction("Export", self)
         self.saveasAction.triggered.connect(self.exporter)
-        self.saveasAction.setShortcut("Ctrl+S")
+        self.saveasAction.setShortcut("Ctrl+Alt+S")
         self.saveasAction.setEnabled(False)
         fileMenu.addAction(self.saveasAction)
 
         exitAction = QAction("Exit", self)
-        exitAction.triggered.connect(self.closeEvent)
+        exitAction.triggered.connect(lambda :self.close())
         fileMenu.addAction(exitAction)
 
         # Menu 2
@@ -93,6 +102,8 @@ class MainWindow(QMainWindow):
     def create_toolbar(self):  # Employee Tabs
         self.tabtoolBar = QToolBar("Employee Tabs")
         self.addToolBar(Qt.TopToolBarArea, self.tabtoolBar)
+        self.tabtoolBar.setIconSize(QSize(24, 24))
+        self.tabtoolBar.setToolButtonStyle(Qt.ToolButtonIconOnly)
 
         # replace with Icons
         self.toolActionNew = QAction("New")  # For demonstration Purposes
@@ -101,11 +112,20 @@ class MainWindow(QMainWindow):
         self.tabtoolBar.addSeparator()
 
         self.toolActionOpen = QAction("Open")  # For demonstration Purposes # replace with Icon
+        self.toolActionOpen.triggered.connect(self.read_json)
         self.tabtoolBar.addAction(self.toolActionOpen)
         self.tabtoolBar.addSeparator()
 
         self.toolActionSave = QAction("Save")  # For demonstration Purposes
+        self.toolActionSave.triggered.connect(self.write_json)
+        self.toolActionSave.setEnabled(False)
         self.tabtoolBar.addAction(self.toolActionSave)
+        self.tabtoolBar.addSeparator()
+
+        self.toolActionExport = QAction("Export")  # For demonstration Purposes
+        self.toolActionExport.triggered.connect(self.exporter)
+        self.toolActionExport.setEnabled(False)
+        self.tabtoolBar.addAction(self.toolActionExport)
         self.tabtoolBar.addSeparator()
 
     def create_tabs(self):
@@ -123,7 +143,10 @@ class MainWindow(QMainWindow):
         # Create a table
         self.table = QTableWidget(self)
         self.table.setObjectName("AddEmployeeTable")
+        self.saveAction.setEnabled(True)
         self.saveasAction.setEnabled(True)
+        self.toolActionSave.setEnabled(True)
+        self.toolActionExport.setEnabled(True)
         # Set properties for table for demo process
         self.table.setRowCount(2)  # for demonstration purposes
         self.table.setColumnCount(6)  # For Demonstration Purposes
@@ -157,6 +180,20 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.tabNew, self.windowAvailable.nameLineEdit.text())
         self.tabNew.setObjectName(self.windowAvailable.nameLineEdit.text())
 
+    def manageIcons(self):
+        newIcon = QIcon()
+        openIcon = QIcon()
+        saveIcon = QIcon()
+        exportIcon = QIcon()
+        newIcon.addFile(u":/main/doc_plus_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.toolActionNew.setIcon(newIcon)
+        openIcon.addFile(u":/main/folder_open_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.toolActionOpen.setIcon(openIcon)
+        saveIcon.addFile(u":/main/save_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.toolActionSave.setIcon(saveIcon)
+        exportIcon.addFile(u":/main/doc_export_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.toolActionExport.setIcon(exportIcon)
+
     def add_atab(self,tabname):
         # Create a tab as a widget so you can place anything on it
         self.tabNew = QWidget(self.tabs)
@@ -166,7 +203,10 @@ class MainWindow(QMainWindow):
         # Create a table
         self.table = QTableWidget(self)
         self.table.setObjectName("AddEmployeeTable")
+        self.saveAction.setEnabled(True)
         self.saveasAction.setEnabled(True)
+        self.toolActionSave.setEnabled(True)
+        self.toolActionExport.setEnabled(True)
         # Set properties for table for demo process
         self.table.setRowCount(2)  # for demonstration purposes
         self.table.setColumnCount(6)  # For Demonstration Purposes
