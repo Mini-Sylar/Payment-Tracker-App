@@ -5,24 +5,44 @@
     "Date": [
         "Fri Jan 1 2021",
         "Fri Jan 1 2021",
-        "Fri Jan 1 2021"
+        "Sat Jan 2 2021",
+        "Fri Jan 1 2021",
+        "Fri Jan 1 2021",
+        "Fri Jan 1 2021",
+        "Tue Jul 14 2020"
     ],
     "Time Started": [
+        "7:00 AM",
         "8:00 AM",
         "10:00 AM",
-        "11:00 AM"
+        "12:00 PM",
+        "1:00 PM",
+        "3:00 PM",
+        "4:00 PM"
     ],
     "Time Ended": [
+        "8:00 AM",
         "9:00 AM",
-        "11:00 AM",
-        "1:25 PM"
+        "10:31 AM",
+        "12:46 PM",
+        "2:47 PM",
+        "3:05 PM",
+        "4:29 PM"
     ],
     "Total Time Worked": [
         "1hour(s) 0mins",
         "1hour(s) 0mins",
-        "2hour(s) 25mins"
+        "0hour(s) 31mins",
+        "0hour(s) 46mins",
+        "1hour(s) 47mins",
+        "0hour(s) 5mins",
+        "0hour(s) 29mins"
     ],
     "Amount Per Hour": [
+        "$5.00",
+        "$5.00",
+        "$5.00",
+        "$5.00",
         "$5.00",
         "$5.00",
         "$5.00"
@@ -30,6 +50,10 @@
     "Amount Paid": [
         "$5.00",
         "$5.00",
-        "$12.08"
+        "$2.58",
+        "$3.83",
+        "$8.92",
+        "$0.42",
+        "$2.42"
     ]
 }

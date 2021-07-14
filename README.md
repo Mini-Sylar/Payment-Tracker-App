@@ -34,12 +34,15 @@ for updates to the project
 
 ## Screenshots
 <div>
-<img width="380" src="/Screenshots/Screen1.png" alt="Mainwindow Interface">
-<img width="380" src="/Screenshots/Screen2.png" alt="Add Employee">
-<img width="380" src="/Screenshots/Screen3.png" alt="Sample Data1">
-<img width="380" src="/Screenshots/Screen4.png" alt="Update Employee">
-<img width="380" src="/Screenshots/Screen5.png" alt="Sample Data After Update">
-<img width="380" src="/Screenshots/Screen6.png" alt="Sample Data After Exporting">
+<img width="380" src="/Screenshots/screen_icons_1.png" alt="Mainwindow Interface">
+<img width="380" src="/Screenshots/screen_icons_2.png" alt="Add Employee">
+<img width="380" src="/Screenshots/screen_icons_3.png" alt="Open User1 Data">
+<img width="380" src="/Screenshots/screen_icons_4.png" alt="Loaded Data">
+<img width="380" src="/Screenshots/screen_icons_5.png" alt="Update Employee">
+<img width="380" src="/Screenshots/screen_icons_6.png" alt="Sample Data After Exporting">
+<img width="380" src="/Screenshots/screen_icons_7.png" alt="Change Icons">
+<img width="380" src="/Screenshots/screen_icons_8.png" alt="After Changing Icons">
+<img width="380" src="/Screenshots/Output_Image.png" alt="After Changing Icons">
 </div>
 
 Sample file is included in Screenshots folder as [Sample Output](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/Screenshots/Employee1_Data.xls)

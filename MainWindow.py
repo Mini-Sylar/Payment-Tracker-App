@@ -6,7 +6,8 @@ import xlsxwriter
 from PyQt5.QtCore import QTime, QTimer, Qt, QCoreApplication, QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QAction, QMessageBox, QLabel, QToolBar, QTabWidget, \
-    QVBoxLayout, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView, QFileDialog, QApplication
+    QVBoxLayout, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView, QFileDialog, QApplication, \
+    QActionGroup, QMenu, QDesktopWidget
 from qt_material import apply_stylesheet
 
 from Windows.AddEmployee import WindowEmployeeAdd
@@ -14,14 +15,14 @@ from Windows.UpdateEmployee import WindowEmployeeUpdate
 
 import ToolbarIcons
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setObjectName("ManageEmployeeObject")
 
         self.setWindowTitle("Manage Employee")
-        self.setGeometry(100, 100, 700, 600)
-        # self.setFixedSize(690,600)
+        self.resize(700,600)
         self.windowAvailable = None  # set available Window to None
         self.updateAvailable = None
         # To add Items to Central Widget Create a Widget and set the CentralWidget to it
@@ -35,8 +36,16 @@ class MainWindow(QMainWindow):
         self.create_menu()
         self.create_statusbar()
         self.create_toolbar()
-        self.manageIcons()
+        self.manage_icons_black()
         self.create_tabs()
+        self.center()
+
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
     def create_menu(self):
         # create menu bar
@@ -67,10 +76,10 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(self.saveasAction)
 
         exitAction = QAction("Exit", self)
-        exitAction.triggered.connect(lambda :self.close())
+        exitAction.triggered.connect(lambda: self.close())
         fileMenu.addAction(exitAction)
 
-        # Menu 2
+        # Menu 3
         editMenu = main_menu.addMenu("Edit")
         # add Action Here
         copyAction = QAction("Copy", self)
@@ -78,7 +87,26 @@ class MainWindow(QMainWindow):
         editMenu.addAction(copyAction)
         editMenu.addSeparator()
 
-        # Menu 3
+        # Change Icon Menu
+        viewMenu = main_menu.addMenu("View")
+        black = QAction("Black Icons", self)
+        white = QAction("White Icons", self)
+
+        black.setCheckable(True)
+        black.setChecked(True)
+        white.setCheckable(True)
+
+        black.triggered.connect(self.manage_icons_black)
+        white.triggered.connect(self.manage_icons_white)
+
+        viewMenu.addAction(black)
+        viewMenu.addAction(white)
+
+        actiongroup = QActionGroup(self)
+        actiongroup.addAction(black)
+        actiongroup.addAction(white)
+
+        # Menu 4
         helpMenu = main_menu.addMenu("Help")
         aboutAction = QAction("About", self)
         aboutAction.triggered.connect(self.helpMessage)
@@ -180,21 +208,32 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.tabNew, self.windowAvailable.nameLineEdit.text())
         self.tabNew.setObjectName(self.windowAvailable.nameLineEdit.text())
 
-    def manageIcons(self):
-        newIcon = QIcon()
-        openIcon = QIcon()
-        saveIcon = QIcon()
-        exportIcon = QIcon()
-        newIcon.addFile(u":/main/doc_plus_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.toolActionNew.setIcon(newIcon)
-        openIcon.addFile(u":/main/folder_open_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.toolActionOpen.setIcon(openIcon)
-        saveIcon.addFile(u":/main/save_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.toolActionSave.setIcon(saveIcon)
-        exportIcon.addFile(u":/main/doc_export_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.toolActionExport.setIcon(exportIcon)
+    def manage_icons_black(self):
+        newIcon_black, openIcon_black, saveIcon_black, exportIcon_black = QIcon(), QIcon(), QIcon(), QIcon()
+        newIcon_black.addFile(u":/Black/doc_new_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        openIcon_black.addFile(u":/Black/folder_open_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        saveIcon_black.addFile(u":/Black/save_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        exportIcon_black.addFile(u":/Black/doc_export_icon&32.png", QSize(), QIcon.Normal, QIcon.Off)
+        # Set Icons Here
+        self.toolActionNew.setIcon(newIcon_black)
+        self.toolActionOpen.setIcon(openIcon_black)
+        self.toolActionSave.setIcon(saveIcon_black)
+        self.toolActionExport.setIcon(exportIcon_black)
 
-    def add_atab(self,tabname):
+    def manage_icons_white(self):
+        newIcon_white, openIcon_white, saveIcon_white, exportIcon_white = QIcon(), QIcon(), QIcon(), QIcon()
+        newIcon_white.addFile(u":/White/doc_new_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
+        openIcon_white.addFile(u":/White/folder_open_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
+        saveIcon_white.addFile(u":/White/save_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
+        exportIcon_white.addFile(u":/White/doc_export_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        # Set Icons Here
+        self.toolActionNew.setIcon(newIcon_white)
+        self.toolActionOpen.setIcon(openIcon_white)
+        self.toolActionSave.setIcon(saveIcon_white)
+        self.toolActionExport.setIcon(exportIcon_white)
+
+    def add_atab(self, tabname):
         # Create a tab as a widget so you can place anything on it
         self.tabNew = QWidget(self.tabs)
         # Create a layout and add said tab
@@ -236,7 +275,6 @@ class MainWindow(QMainWindow):
     def newEmployeeWindow(self):
         if self.windowAvailable is None:
             self.windowAvailable = WindowEmployeeAdd()
-            self.windowAvailable.setGeometry(self.x(), self.y(), 400, 400)
         if self.windowAvailable.exec_():
             ## Set the data and Time Now
             self.dateSetAdd = self.windowAvailable.dateLineEdit.date().toString()
@@ -258,7 +296,7 @@ class MainWindow(QMainWindow):
     def UpdateEmployeeWindow(self):
         if self.updateAvailable is None:
             self.updateAvailable = WindowEmployeeUpdate()
-            self.updateAvailable.setGeometry(self.x(), self.y(), 400, 400)
+            self.updateAvailable.resize( 400, 400)
             self.index = self.tabs.currentIndex()
             # Set the new stuff here
             self.updateAvailable.nameLineEdit.setText(self.tabs.tabText(self.index))
@@ -304,7 +342,7 @@ class MainWindow(QMainWindow):
 
     def exporter(self, filename=None):
         if not filename:
-            filename = QFileDialog.getSaveFileName(self, 'Save File', '', ".xls(*.xls)")
+            filename = QFileDialog.getSaveFileName(self, 'Save File', '', ".xlsx(*.xlsx)")
         if filename[0]:
             wb = xlsxwriter.Workbook(filename[0])
             self.sb = wb.add_worksheet()
@@ -374,7 +412,7 @@ class MainWindow(QMainWindow):
         filename = self.tabs.tabText(self.tabs.currentIndex()).replace(" ", "") + "-data.json"
         finalpath = os.path.join('SavedData', filename)
 
-        outfile = open(finalpath,"w")
+        outfile = open(finalpath, "w")
         outfile.write(json_object)
         outfile.close()
 
