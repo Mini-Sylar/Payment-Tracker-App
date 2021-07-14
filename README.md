@@ -47,8 +47,7 @@ for updates to the project
     </p>
 </div>
 
-Sample file is included in Screenshots folder as [Sample Output](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/Screenshots/User1%20Output
-.xls)
+Sample file is included in Screenshots folder as [Sample Output](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/Screenshots/User1%20Output.xls)
 
 ## Contributing
 Pull requests are welcome. Also a TO DO list will be added to give an idea of what is 
