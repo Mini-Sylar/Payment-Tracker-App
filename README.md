@@ -34,16 +34,16 @@ for updates to the project
 
 ## Screenshots
 <div>
-<img width="380" src="/Screenshots/screen_icons_1.png" alt="Mainwindow Interface">
-<img width="380" src="/Screenshots/screen_icons_2.png" alt="Add Employee">
-<img width="380" src="/Screenshots/screen_icons_3.png" alt="Open User1 Data">
-<img width="380" src="/Screenshots/screen_icons_4.png" alt="Loaded Data">
-<img width="380" src="/Screenshots/screen_icons_5.png" alt="Update Employee">
-<img width="380" src="/Screenshots/screen_icons_6.png" alt="Sample Data After Exporting">
-<img width="380" src="/Screenshots/screen_icons_7.png" alt="Change Icons">
-<img width="380" src="/Screenshots/screen_icons_8.png" alt="After Changing Icons">
-  <p align="center">
-<img width="380" src="/Screenshots/Output_Image.png" alt="Sample Output Image">
+   <p align="center">
+        <img width="380" src="/Screenshots/screen_icons_1.png" alt="Mainwindow Interface">
+        <img width="380" src="/Screenshots/screen_icons_2.png" alt="Add Employee">
+        <img width="380" src="/Screenshots/screen_icons_3.png" alt="Open User1 Data">
+        <img width="380" src="/Screenshots/screen_icons_4.png" alt="Loaded Data">
+        <img width="380" src="/Screenshots/screen_icons_5.png" alt="Update Employee">
+        <img width="380" src="/Screenshots/screen_icons_6.png" alt="Sample Data After Exporting">
+        <img width="380" src="/Screenshots/screen_icons_7.png" alt="Change Icons">
+        <img width="380" src="/Screenshots/screen_icons_8.png" alt="After Changing Icons">
+        <img width="380" src="/Screenshots/Output_Image.png" alt="Sample Output Image">
     </p>
 </div>
 
