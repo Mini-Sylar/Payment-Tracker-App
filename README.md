@@ -42,7 +42,9 @@ for updates to the project
 <img width="380" src="/Screenshots/screen_icons_6.png" alt="Sample Data After Exporting">
 <img width="380" src="/Screenshots/screen_icons_7.png" alt="Change Icons">
 <img width="380" src="/Screenshots/screen_icons_8.png" alt="After Changing Icons">
-<img width="380" src="/Screenshots/Output_Image.png" alt="After Changing Icons">
+  <p align="center">
+<img width="380" src="/Screenshots/Output_Image.png" alt="Sample Output Image">
+    </p>
 </div>
 
 Sample file is included in Screenshots folder as [Sample Output](https://github.com/Mini-Sylar/DSC-UG-Challenge-UI-Version/blob/main/Screenshots/Employee1_Data.xls)
