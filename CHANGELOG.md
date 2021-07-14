@@ -37,7 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - JSON can be loaded right after starting application
 - Added folder to store JSON files samples are included!
-- Work is automatically saved when you close the app
+- Work is saved automatically when you close the app
 ### Changed
 - Json data is now loaded according to the name in the user
 - Program automatically adds tab and fills it if the names do not match
@@ -72,7 +72,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - No major changes
 ### Issues
-- Exporting into excel crashes program when there is no table
+- Exporting into Excel crashes program when there is no table
 <hr>
 
 ## [Unreleased] - 2021-16-01
