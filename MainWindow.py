@@ -7,14 +7,13 @@ from PyQt5.QtCore import QTime, QTimer, Qt, QCoreApplication, QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QAction, QMessageBox, QLabel, QToolBar, QTabWidget, \
     QVBoxLayout, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QAbstractItemView, QFileDialog, QApplication, \
-    QActionGroup, QMenu, QDesktopWidget
+    QActionGroup, QDesktopWidget
 from qt_material import apply_stylesheet
 
 from Windows.AddEmployee import WindowEmployeeAdd
 from Windows.UpdateEmployee import WindowEmployeeUpdate
 
 import ToolbarIcons
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -91,20 +90,25 @@ class MainWindow(QMainWindow):
         viewMenu = main_menu.addMenu("View")
         black = QAction("Black Icons", self)
         white = QAction("White Icons", self)
+        flat_black = QAction("Flat Icons", self)
 
         black.setCheckable(True)
         black.setChecked(True)
         white.setCheckable(True)
+        flat_black.setCheckable(True)
 
         black.triggered.connect(self.manage_icons_black)
         white.triggered.connect(self.manage_icons_white)
+        flat_black.triggered.connect(self.manage_icons_flat)
 
         viewMenu.addAction(black)
         viewMenu.addAction(white)
+        viewMenu.addAction(flat_black)
 
         actiongroup = QActionGroup(self)
         actiongroup.addAction(black)
         actiongroup.addAction(white)
+        actiongroup.addAction(flat_black)
 
         # Menu 4
         helpMenu = main_menu.addMenu("Help")
@@ -226,6 +230,19 @@ class MainWindow(QMainWindow):
         openIcon_white.addFile(u":/White/folder_open_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
         saveIcon_white.addFile(u":/White/save_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
         exportIcon_white.addFile(u":/White/doc_export_icon&32_white.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        # Set Icons Here
+        self.toolActionNew.setIcon(newIcon_white)
+        self.toolActionOpen.setIcon(openIcon_white)
+        self.toolActionSave.setIcon(saveIcon_white)
+        self.toolActionExport.setIcon(exportIcon_white)
+
+    def manage_icons_flat(self):
+        newIcon_white, openIcon_white, saveIcon_white, exportIcon_white = QIcon(), QIcon(), QIcon(), QIcon()
+        newIcon_white.addFile(u":/FlatBlack/new.png", QSize(), QIcon.Normal, QIcon.Off)
+        openIcon_white.addFile(u":/FlatBlack/import.png", QSize(), QIcon.Normal, QIcon.Off)
+        saveIcon_white.addFile(u":/FlatBlack/save.png", QSize(), QIcon.Normal, QIcon.Off)
+        exportIcon_white.addFile(u":/FlatBlack/export.png", QSize(), QIcon.Normal, QIcon.Off)
 
         # Set Icons Here
         self.toolActionNew.setIcon(newIcon_white)

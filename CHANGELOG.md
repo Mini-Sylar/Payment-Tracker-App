@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - 2021-14-07
 ### Added
+- Added flat icons to toolbar (select from view menu)
+### Changed
+No changes
+### Issues
+- Your work will be replaced once you start a new file under the same name and save
+<hr>
+
+
+## [Unreleased] - 2021-14-07
+### Added
 - Added white icons to toolbar (Enabled icons show as white with teal accent)
 - Added view option to menu bar
 - Added option to switch between icons (black and white)
